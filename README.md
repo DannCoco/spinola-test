@@ -1,1 +1,0 @@
-# spinola-test
