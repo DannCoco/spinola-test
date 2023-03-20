@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Log;
 
 class OddController extends Controller
 {
@@ -14,7 +13,7 @@ class OddController extends Controller
      */
     public function __invoke(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
         $r = $request->r;
         $n = $request->n;
         $data = [];
@@ -22,11 +21,10 @@ class OddController extends Controller
         for ($i=0; $i < $r; $i++) { 
             $m = $r - $i;
             $this->c($n, $r); 
-            Log::info($this->c($n, $r) / ($this->c($r, $m) * $this->c($n - $r, $r - $m)));
 
             $oddsResult = [
                 'number_of_match' => $m,
-                'odds' => $this->c($n, $r) / ($this->c($r, $m) * $this->c($n - $r, $r - $m))
+                'odds' => intval($this->c($n, $r) / ($this->c($r, $m) * $this->c($n - $r, $r - $m)))
             ];
             
             $data[] =  $oddsResult;

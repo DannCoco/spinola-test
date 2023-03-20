@@ -1,0 +1,36 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Tests\Feature\Infrastructure;
+
+use Symfony\Component\HttpFoundation\Response;
+use Tests\TestCase;
+
+final class OddControllerTest extends TestCase
+{
+    /**
+     * @test
+     */
+    public function request_successfully(): void
+    {
+        $response = $this->post(
+            'api/odd',
+            [
+                'r' => 1,
+                'n' => 2,
+            ]
+        );
+
+        /** @var string */
+        $responseString = $response->getContent();
+
+        $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
+        $this->assertEquals([
+            [
+                'number_of_match' => 1,
+                'odds' => 2,
+            ],
+        ], \json_decode($responseString, true));
+    }
+}

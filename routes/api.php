@@ -3,7 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\OddController;
+use Spinola\Infrastructure\OddController;
+// use App\Http\Controllers\OddController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,4 @@ use App\Http\Controllers\OddController;
 //     return $request->user();
 // });
 
-Route::group(['middleware' => ['cors']], function () {
-    Route::post('odd', OddController::class);
-});
+Route::get('odd', OddController::class);
