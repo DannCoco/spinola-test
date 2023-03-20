@@ -14,17 +14,18 @@ class OddController extends Controller
 {
     public function __invoke(Request $request): JsonResponse
     {
-        if (isset($request->r, $request->n)) {
-            $r = $request->r;
-            $n = $request->n;
+        /**
+         * @var array{r: string, n: string}
+         */
+        $data = $request->query();
 
-            return new JsonResponse(
-                (new CalculateOdds())(
-                    Odds::with($r, $n)
-                )
-            );
-        }
+        $r = (int) $data['r'];
+        $n = (int) $data['n'];
 
-        return new JsonResponse();
+        return new JsonResponse(
+            (new CalculateOdds())(
+                Odds::with($r, $n)
+            )
+        );
     }
 }

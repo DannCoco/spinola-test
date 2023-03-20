@@ -2,12 +2,9 @@
 
 declare(strict_types=1);
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use Spinola\Infrastructure\OddController;
-
-// use App\Http\Controllers\OddController;
 
 /*
 |--------------------------------------------------------------------------
