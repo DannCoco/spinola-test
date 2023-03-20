@@ -1,8 +1,8 @@
 <?php
 
-namespace Spinola\Domain;
+declare(strict_types=1);
 
-use Illuminate\Support\Facades\Log;
+namespace Spinola\Domain;
 
 final class Factorial
 {
@@ -24,8 +24,8 @@ final class Factorial
     {
         if ($n <= 1) {
             return 1;
-        } else {
-            return $n * $this->factorial($n - 1);
         }
+
+        return $n * $this->factorial($n - 1);
     }
 }

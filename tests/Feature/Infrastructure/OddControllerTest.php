@@ -14,7 +14,7 @@ final class OddControllerTest extends TestCase
      */
     public function request_successfully(): void
     {
-        $response = $this->post(
+        $response = $this->get(
             'api/odd',
             [
                 'r' => 1,
@@ -26,11 +26,16 @@ final class OddControllerTest extends TestCase
         $responseString = $response->getContent();
 
         $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
-        $this->assertEquals([
+        $this->assertEquals(
             [
-                'number_of_match' => 1,
-                'odds' => 2,
-            ],
+                [
+                    'number_of_match' => 1,
+                    'odds' => 2
+                ],
+                [
+                    'number_of_match' => 3,
+                    'odds' => 4
+                ]
         ], \json_decode($responseString, true));
     }
 }
