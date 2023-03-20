@@ -6,10 +6,13 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "friendsofphp/php-cs-fixer": "^3.15",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.0",
         "laravel/sanctum": "^3.2",
-        "laravel/tinker": "^2.8"
+        "laravel/tinker": "^2.8",
+        "overtrue/phplint": "^9.0",
+        "phpstan/phpstan": "^1.10"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
@@ -23,6 +26,7 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/",
+            "Spinola\\": "src/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
         }
@@ -45,6 +49,50 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "security:check": [
+            "@composer audit"
+        ],
+        "code-style:check": [
+            "vendor/bin/php-cs-fixer fix --dry-run --diff --show-progress=dots"
+        ],
+        "code-style:fix": [
+            "vendor/bin/php-cs-fixer fix --diff --show-progress=dots"
+        ],
+        "lint": [
+            "vendor/bin/phplint"
+        ],
+        "analyze": [
+            "vendor/bin/phpstan analyze -c phpstan.neon"
+        ],
+        "phpunit:unit": [
+            "php artisan test --testsuite=Unit --stop-on-failure"
+        ],
+        "phpunit:integration": [
+            "php artisan test --testsuite=Feature --stop-on-failure"
+        ],
+        "phpunit:coverage": [
+            "php artisan test --coverage --min=80"
+        ],
+        "phpunit:html": [
+            "rm -rf coverage && vendor/bin/phpunit --coverage-html ./coverage"
+        ],
+        "static-analysis": [
+            "@composer validate",
+            "@lint",
+            "@code-style:check",
+            "@analyze"
+        ],
+        "infra:local": [
+            "cp .env.example .env.testing",
+            "php artisan key:generate --env=testing"
+        ],
+        "tests:local": [
+            "@security:check",
+            "@static-analysis",
+            "@infra:local",
+            "@phpunit:unit",
+            "@phpunit:integration"
         ]
     },
     "extra": {

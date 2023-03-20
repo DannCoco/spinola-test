@@ -1,0 +1,22 @@
+includes:
+    - vendor/phpstan/phpstan/conf/bleedingEdge.neon
+
+services:
+    -
+        class: PHPStan\Rules\Properties\MissingPropertyTypehintRule
+        tags:
+            - phpstan.rules.rule
+
+parameters:
+    paths:
+        - app
+        - src
+        - tests
+    level: 9
+    inferPrivatePropertyTypeFromConstructor: true
+    checkMissingIterableValueType: false
+    checkExplicitMixed: false
+    excludePaths:
+        - %currentWorkingDirectory%/app/Providers/*
+        - %currentWorkingDirectory%/app/Http/Middleware/*
+    

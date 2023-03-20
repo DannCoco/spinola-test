@@ -1,9 +1,10 @@
 <?php
 
-use Illuminate\Http\Request;
+declare(strict_types=1);
+
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\OddController;
+use Spinola\Infrastructure\OddController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,10 +17,4 @@ use App\Http\Controllers\OddController;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
-Route::group(['middleware' => ['cors']], function () {
-    Route::post('odd', OddController::class);
-});
+Route::get('odd', OddController::class);
